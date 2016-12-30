@@ -9,18 +9,16 @@ def printBoard(board): # draws the tic tac toe board on the screen
 	print('-+-+-')
 	print(board['low-L'] + '|' + board['low-M'] + '|' + board['low-R'])
 
-def moveMaker(turn): # fills in the space selected by the user whose turn it is
+def mover(turn, move):
 	move = input("Enter a space on the grid for your " +turn+ " mark to be placed. \n")
 	print("")
-	theBoard[move] = turn
-	return move
-
-def moveChecker(move): # checks to see if the space is already filled by another piece
-	if theBoard.get(move) == 'X' or theBoard.get(move) == 'O':
-		print("This space is filled with an X. Please pick a different space!")
-		return False
+	if not (theBoard.get(move) == 'X' or theBoard.get(move) == 'O'):
+		theBoard[move] = turn
+		printBoard(theBoard)
+		turnSwitcher(turn)
 	else:
-		return True
+		print("The space" +move+ " is filled with a " +turn+ " already. Please try again!")
+		mover(turn, move)
 
 def winningCombos(): # deteremines if either user X or user Y has achieved a winning combination
 	# X possibilities vertical
@@ -57,28 +55,38 @@ def turnSwitcher(turn):
 		turn  = 'X'
 	return turn
 
-
-
-def main():
-	print("Welcome to Tic Tac Toe!")
-	printBoard(theBoard)
-	turn = 'X' 
-	move = ''
-	while not winningCombos() is True:
-		if moveChecker(move) is True:
-			winner = winningCombos()
-			moveMaker(turn) # calls the function to place the appropriate marker
-			moveChecker(move)
-			printBoard(theBoard) # prints the newly marked board
-			turn = turnSwitcher(turn)
+def switchTheTurn(switchIt, turn):
+	if switchIt is True:
+		if turn == 'X':
+			turn = 'O'
 		else:
-			winner = winningCombos()
-			moveMaker(turn)
-			moveChecker(move)
+			turn = 'X'
+			
+	if switchIt is False:
+		turn = turn
+	return turn
+		
+							
+def main():
+	print("Welcome to TIc Tac Toe!")
+	printBoard(theBoard)
+	turn = 'X'
+	while not winningCombos() is True:
+		move = ''
+		move = input("Enter a space on the grid for your " +turn+ " mark to be placed. \n")
+		print("")
+
+		if not (theBoard.get(move) == 'X' or theBoard.get(move) == 'O'):
+			theBoard[move] = turn
 			printBoard(theBoard)
+			switchIt = True
+			
+		else:
+			print("The space " +move+ " is filled with a " +turn+ " already. Please try again!")
+			switchIt = False
 
-
-
+		turn = switchTheTurn(switchIt, turn)
+			
 
 main()
 
