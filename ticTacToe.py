@@ -66,10 +66,13 @@ def switchTheTurn(switchIt, turn):
 		turn = turn
 	return turn
 		
-							
+
 def main():
-	print("Welcome to TIc Tac Toe!")
+	print("Welcome to Tic Tac Toe!")
+	print("Instructions: Player X will go first. \n When prompted to enter a space, you may enter: \n top-L, top-M, top-R \n mid-L, mid-M, mid-R \n low-L, low-M, low-R")
+	print("")
 	printBoard(theBoard)
+	print("")
 	turn = 'X'
 	while not winningCombos() is True:
 		move = ''
@@ -79,10 +82,13 @@ def main():
 		if not (theBoard.get(move) == 'X' or theBoard.get(move) == 'O'):
 			theBoard[move] = turn
 			printBoard(theBoard)
+			print("")
 			switchIt = True
 			
 		else:
 			print("The space " +move+ " is filled with a " +turn+ " already. Please try again!")
+			printBoard(theBoard)
+			print("")
 			switchIt = False
 
 		turn = switchTheTurn(switchIt, turn)
