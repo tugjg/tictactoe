@@ -79,11 +79,20 @@ def main():
 		move = input("Enter a space on the grid for your " +turn+ " mark to be placed. \n")
 		print("")
 
-		if not (theBoard.get(move) == 'X' or theBoard.get(move) == 'O'):
+		if not move in theBoard.keys():
+			print("That is an invalid position! Try again!")
+			print("")
+			printBoard(theBoard)
+			switchIt = False
+
+
+
+		elif not (theBoard.get(move) == 'X' or theBoard.get(move) == 'O'):
 			theBoard[move] = turn
 			printBoard(theBoard)
 			print("")
 			switchIt = True
+
 			
 		else:
 			print("The space " +move+ " is filled with a " +turn+ " already. Please try again!")
