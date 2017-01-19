@@ -65,6 +65,8 @@ def switchTheTurn(switchIt, turn):
 	if switchIt is False:
 		turn = turn
 	return turn
+
+
 		
 
 def main():
@@ -74,7 +76,8 @@ def main():
 	printBoard(theBoard)
 	print("")
 	turn = 'X'
-	while not winningCombos() is True:
+	turn_counter = 0;
+	while not winningCombos() is True and turn_counter < 8:
 		move = ''
 		move = input("Enter a space on the grid for your " +turn+ " mark to be placed. \n")
 		print("")
@@ -92,6 +95,7 @@ def main():
 			printBoard(theBoard)
 			print("")
 			switchIt = True
+			turn_counter = turn_counter + 1
 
 			
 		else:
@@ -101,6 +105,7 @@ def main():
 			switchIt = False
 
 		turn = switchTheTurn(switchIt, turn)
+	print("There is no winner :(")
 			
 
 main()
